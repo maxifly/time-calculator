@@ -1,0 +1,3 @@
+launch4j.log
+target/classes/*
+target/maven-archiver/pom.properties
