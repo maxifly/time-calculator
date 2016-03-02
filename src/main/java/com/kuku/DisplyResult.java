@@ -15,8 +15,8 @@ import java.util.Map;
  */
 public class DisplyResult extends JPanel implements DisplyElementI {
 
-    JLabel h, m, s;
-    private JLabel sgn, c1, c2;
+    JLabel h, m, s, f;
+    private JLabel sgn, c1, c2, cf;
     private DispMouseListener ml = new DispMouseListener();
     private Font font;
     private Border border, borderEmpty;
@@ -40,6 +40,8 @@ public class DisplyResult extends JPanel implements DisplyElementI {
         m.setFont(font);
         s = new JLabel();
         s.setFont(font);
+        f = new JLabel();
+        f.setFont(font);
         sgn = new JLabel();
         sgn.setFont(font);
 
@@ -47,18 +49,22 @@ public class DisplyResult extends JPanel implements DisplyElementI {
         h.addMouseListener(ml);
         m.addMouseListener(ml);
         s.addMouseListener(ml);
+        f.addMouseListener(ml);
 
         ml.setCalclLogic(calclLogic);
         ml.setH(h);
         ml.setM(m);
         ml.setS(s);
+        ml.setF(f);
 
 
         c1 = new JLabel(":");
         c2 = new JLabel(":");
+        cf = new JLabel(":");
 
         c1.setFont(font);
         c2.setFont(font);
+        cf.setFont(font);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -72,6 +78,8 @@ public class DisplyResult extends JPanel implements DisplyElementI {
         this.add(m);
         this.add(c2);
         this.add(s);
+        this.add(cf);
+        this.add(f);
 
         // this.setPreferredSize(new Dimension(60,20));
 

@@ -5,7 +5,7 @@ package com.kuku;
  */
 public class CalclLogic {
     ElementFactory factory;
-
+    private int fps = 1;
     private Time_POJO registerDisp = null;
     private Time_POJO registerReg = null;
 
@@ -29,8 +29,8 @@ public class CalclLogic {
     }
 
     public void clearAll() {
-        this.registerDisp = new Time_POJO(0);
-        this.registerReg = new Time_POJO(0);
+        this.registerDisp = new Time_POJO(0, fps);
+        this.registerReg = new Time_POJO(0, fps);
         this.operation = null;
         this.calcState = CalcState.waitH;
 
@@ -103,7 +103,7 @@ public class CalclLogic {
         this.calcState = CalcState.waitH;
         this.registerReg = this.registerDisp;
         this.operation = operation;
-        this.registerDisp = new Time_POJO(0);
+        this.registerDisp = new Time_POJO(0, fps);
 
         calcDisplay.showDisplay(registerDisp);
         calcDisplay.showRegistrAndOper(registerReg, operation);
@@ -124,7 +124,7 @@ public class CalclLogic {
                 if (operation != null) {
                     int result = calculate();
                     System.out.println(result);
-                    registerDisp = new Time_POJO(result);
+                    registerDisp = new Time_POJO(result, fps);
                     calcState = CalcState.waitH;
                     operation = null;
 
@@ -135,7 +135,7 @@ public class CalclLogic {
                 }
                 break;
             case clearDisp:
-                registerDisp = new Time_POJO(0);
+                registerDisp = new Time_POJO(0, fps);
                 calcDisplay.showDisplay(registerDisp);
                 break;
             case restart:
@@ -148,7 +148,7 @@ public class CalclLogic {
     }
 
 
-    private int calculate() {
+    private int calculate() { // TODO Учесть в рассчете fps
         int argA = registerReg.sign * (registerReg.H * 3600 + registerReg.M * 60 +registerReg.S);
         int argB = registerDisp.sign * (registerDisp.H * 3600 + registerDisp.M * 60 + registerDisp.S);
 

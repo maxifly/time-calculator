@@ -12,6 +12,7 @@ public class DispMouseListener implements MouseListener{
     private JLabel h;
     private JLabel m;
     private JLabel s;
+    private JLabel f;
     private CalclLogic calclLogic;
 
 
@@ -26,7 +27,9 @@ public class DispMouseListener implements MouseListener{
     public void setS(JLabel s) {
         this.s = s;
     }
-
+    public void setF(JLabel f) {
+        this.f = f;
+    }
     public void setCalclLogic(CalclLogic calclLogic) {
         this.calclLogic = calclLogic;
     }
@@ -42,7 +45,7 @@ public class DispMouseListener implements MouseListener{
         } else if(s.equals(e.getComponent())) {
             calclLogic.chooseTimePart(CalcState.waitS);
         }
-
+//TODO Реакция на клик по количеству кадров
     }
 
     @Override
@@ -64,4 +67,6 @@ public class DispMouseListener implements MouseListener{
     public void mouseExited(MouseEvent e) {
 
     }
+
+
 }
