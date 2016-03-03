@@ -99,12 +99,42 @@ public class DisplyResult extends JPanel implements DisplyElementI {
         String sgn = (SGN < 0) ? " - " : "";
         this.sgn.setText(sgn);
 
+        f.setVisible(false);
+        cf.setVisible(false);
+
         Dimension d = this.getSize();
         System.out.println(d);
     }
 
+    private void showValue(int SGN, int H, int M, int S, int F) {
+        h.setText(String.format("%02d", H));
+        m.setText(String.format("%02d", M));
+        s.setText(String.format("%02d", S));
+        if (F > 99) {
+            f.setText(String.format("%03d", F));
+        } else {
+            f.setText(String.format("%02d", F));
+        }
+
+        f.setVisible(true);
+        cf.setVisible(true);
+
+        String sgn = (SGN < 0) ? " - " : "";
+        this.sgn.setText(sgn);
+
+        Dimension d = this.getSize();
+        System.out.println(d);
+    }
+
+
+
     public void showValue(Time_POJO t) {
-        showValue(t.sign, t.H, t.M, t.S);
+
+       if (t.fps == 1) {
+           showValue(t.sign, t.H, t.M, t.S);
+       } else {
+           showValue(t.sign, t.H, t.M, t.S, t.F);
+       }
     }
 
     public void setChooseRegion(CalcState state) {
@@ -131,14 +161,17 @@ public class DisplyResult extends JPanel implements DisplyElementI {
         h.setForeground(Color.WHITE);
         m.setForeground(Color.WHITE);
         s.setForeground(Color.WHITE);
+        f.setForeground(Color.WHITE);
         sgn.setForeground(Color.WHITE);
         c1.setForeground(Color.WHITE);
         c2.setForeground(Color.WHITE);
+        cf.setForeground(Color.WHITE);
 
-        showValue(-1, 99, 99, 99);
+        showValue(-1, 99, 99, 99, 999);
         h.setBorder(border);
         m.setBorder(border);
         s.setBorder(border);
+        f.setBorder(border);
 
 //        h.setFont(ul_font);
 //        m.setFont(ul_font);
@@ -160,13 +193,19 @@ public class DisplyResult extends JPanel implements DisplyElementI {
         h.setBorder(borderEmpty);
         m.setBorder(borderEmpty);
         s.setBorder(borderEmpty);
+        f.setBorder(borderEmpty);
 
         h.setForeground(Color.BLACK);
         m.setForeground(Color.BLACK);
         s.setForeground(Color.BLACK);
+        f.setForeground(Color.BLACK);
         sgn.setForeground(Color.BLACK);
         c1.setForeground(Color.BLACK);
         c2.setForeground(Color.BLACK);
+        cf.setForeground(Color.BLACK);
+
+        f.setVisible(false);
+        cf.setVisible(false);
 
     }
 }

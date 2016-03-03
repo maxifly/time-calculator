@@ -152,7 +152,7 @@ public class CalclLogic {
         int argA = registerReg.sign * (registerReg.H * 3600 + registerReg.M * 60 +registerReg.S);
         int argB = registerDisp.sign * (registerDisp.H * 3600 + registerDisp.M * 60 + registerDisp.S);
 
-        switch (operation) {
+        switch (operation) { //TODO Может перевести на рассчет с двумя входящими параметрами типа Time_POJO
             case add:
                 return argA + argB;
             case sub:
