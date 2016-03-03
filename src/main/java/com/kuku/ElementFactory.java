@@ -18,7 +18,9 @@ public class ElementFactory {
     private DisplyHelp helpRow = new DisplyHelp();
     private DisplyRegister registrRow = new DisplyRegister();
 
+    String[] fpsType = { "off", "25", "50", "30", "60" };
 
+    private JComboBox fpsCombo = new JComboBox(fpsType);
 
 
 
@@ -86,9 +88,7 @@ public class ElementFactory {
     }
 
 
-
-
-
-
-
+    public JComboBox getFpsCombo() {
+        return fpsCombo;
+    }
 }

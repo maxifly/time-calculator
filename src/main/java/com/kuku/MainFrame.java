@@ -20,6 +20,7 @@ public class MainFrame extends JFrame {
     private static final Insets insets = new Insets(5, 5, 5, 5);   // Задает отступы расположения кнопок и экрана внутри своей ячейки
 
     NumButtons numButtons;
+    FpsButtons fpsButtons;
 
     public MainFrame()  {
         try {
@@ -33,6 +34,8 @@ public class MainFrame extends JFrame {
 
         CalcDisplay calcDisplay = new CalcDisplay(factory);
         numButtons = new NumButtons(factory);
+        fpsButtons = new FpsButtons(factory);
+
         calcDisplay.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
 
@@ -65,7 +68,8 @@ public class MainFrame extends JFrame {
        mainPanel.setLayout(new GridBagLayout());
 
        addComponent(mainPanel,calcDisplay,0,0,1,1,GridBagConstraints.PAGE_START, GridBagConstraints.HORIZONTAL);
-       addComponent(mainPanel,numButtons,0,1,1,1,GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+       addComponent(mainPanel,fpsButtons,0,1,1,1,GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        addComponent(mainPanel,numButtons,0,2,1,1,GridBagConstraints.CENTER, GridBagConstraints.BOTH);
 
        this.add(mainPanel);
 
