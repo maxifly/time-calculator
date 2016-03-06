@@ -148,9 +148,9 @@ public class CalclLogic {
     }
 
 
-    private int calculate() { // TODO Учесть в рассчете fps
-        int argA = registerReg.sign * (registerReg.H * 3600 + registerReg.M * 60 +registerReg.S);
-        int argB = registerDisp.sign * (registerDisp.H * 3600 + registerDisp.M * 60 + registerDisp.S);
+    private int calculate() {
+        int argA = registerReg.getFrames();
+        int argB = registerDisp.getFrames();
 
         switch (operation) { //TODO Может перевести на рассчет с двумя входящими параметрами типа Time_POJO
             case add:

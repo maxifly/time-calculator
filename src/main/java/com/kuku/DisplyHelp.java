@@ -43,8 +43,9 @@ public class DisplyHelp extends JLabel implements DisplyElementI {
                     break;
                 case waitS:
                     text = "h:m:S:f";
+                    break;
                 case waitF:
-                    text = "h:m:S:F";
+                    text = "h:m:s:F";
             }
 
             text = "fps: " + fps + "  " + text;

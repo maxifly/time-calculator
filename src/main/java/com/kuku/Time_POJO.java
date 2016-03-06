@@ -24,4 +24,9 @@ public class Time_POJO{
         F = (sec - (H*3600*fps) - M * 60 * fps - S * fps );
 
     }
+
+    public int getFrames() {
+        return sign * ((H * 3600 + M * 60 + S)*fps + F);
+
+    }
 }
