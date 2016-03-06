@@ -16,7 +16,27 @@ public class FpsButtons extends JPanel {
         this.setLayout(gridBagLayout);
 
         fpsCombo = factory.getFpsCombo();
-        this.add(fpsCombo);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx=0;
+        gbc.gridy=0;
+        gbc.anchor = GridBagConstraints.LINE_START;
+
+
+        this.add(new JLabel("  FPS: "),gbc);
+        gbc = new GridBagConstraints();
+        gbc.gridx=1;
+        gbc.gridy=0;
+        gbc.anchor = GridBagConstraints.LINE_START;
+        this.add(fpsCombo,gbc);
+
+        gbc = new GridBagConstraints();
+        gbc.gridx=2;
+        gbc.gridy=0;
+        gbc.weightx=15;
+        gbc.anchor = GridBagConstraints.LINE_START;
+        this.add(new JLabel(" "),gbc);
+
 // TODO Сделать расположение как в NumButtons
 
     }

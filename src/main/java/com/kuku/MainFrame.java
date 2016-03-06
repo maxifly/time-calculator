@@ -69,7 +69,7 @@ public class MainFrame extends JFrame {
 
        addComponent(mainPanel,calcDisplay,0,0,1,1,GridBagConstraints.PAGE_START, GridBagConstraints.HORIZONTAL);
        addComponent(mainPanel,fpsButtons,0,1,1,1,GridBagConstraints.CENTER, GridBagConstraints.BOTH);
-        addComponent(mainPanel,numButtons,0,2,1,1,GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+       addComponent(mainPanel,numButtons,0,2,1,1,GridBagConstraints.CENTER, GridBagConstraints.BOTH);
 
        this.add(mainPanel);
 
