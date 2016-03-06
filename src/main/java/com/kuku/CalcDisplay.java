@@ -75,7 +75,8 @@ public class CalcDisplay extends JPanel {
         this.setBackground(Color.WHITE);
     }
 
-    public void showStatus(CalcState state) {
+    public void showStatus(CalcState state, int fps) {
+        dispHelp.setFps(fps);
         dispHelp.showValue(state);
         dispResult.setChooseRegion(state);
     }

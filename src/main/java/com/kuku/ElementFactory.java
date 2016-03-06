@@ -18,10 +18,9 @@ public class ElementFactory {
     private DisplyHelp helpRow = new DisplyHelp();
     private DisplyRegister registrRow = new DisplyRegister();
 
-    String[] fpsType = { "off", "25", "50", "30", "60" };
 
-    private JComboBox fpsCombo = new JComboBox(fpsType);
-
+    private FpsComboBox fpsCombo = new FpsComboBox();
+    private FpsCombo_ActionListener fpsCombo_actionListener;
 
 
 
@@ -35,6 +34,8 @@ public class ElementFactory {
         this.calcButtonsActions = new CalcButtonsActions(calclLogic);
         this.displyResult =  new DisplyResult(calclLogic);
         calclLogic.setCalcDisplay(new CalcDisplay(this));
+        this.fpsCombo_actionListener = new FpsCombo_ActionListener(calclLogic);
+        this.fpsCombo.addActionListener(this.fpsCombo_actionListener);
 
 
 
@@ -88,7 +89,7 @@ public class ElementFactory {
     }
 
 
-    public JComboBox getFpsCombo() {
+    public FpsComboBox getFpsCombo() {
         return fpsCombo;
     }
 }

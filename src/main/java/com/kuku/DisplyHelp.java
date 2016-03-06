@@ -6,7 +6,9 @@ import java.awt.*;
 /**
  * Created by Maxim.Pantuhin on 08.10.2014.
  */
-public class DisplyHelp extends JLabel implements DisplyElementI{
+public class DisplyHelp extends JLabel implements DisplyElementI {
+    private int fps;
+
     public DisplyHelp() {
         super();
         this.setHorizontalAlignment(SwingConstants.LEFT);
@@ -16,33 +18,54 @@ public class DisplyHelp extends JLabel implements DisplyElementI{
 
     }
 
-    public void showValue(CalcState calcState)
-    {
+    public void showValue(CalcState calcState) {
         String text = null;
-        switch (calcState) {
-            case waitH:
-                text = "H:m:s";
-                break;
-            case waitM:
-                text = "h:M:s";
-                break;
-            case waitS:
-                text = "h:m:S";
+
+        if (this.fps == 1) {
+
+            switch (calcState) {
+                case waitH:
+                    text = "H:m:s";
+                    break;
+                case waitM:
+                    text = "h:M:s";
+                    break;
+                case waitS:
+                    text = "h:m:S";
+            }
+        } else {
+            switch (calcState) {
+                case waitH:
+                    text = "H:m:s:f";
+                    break;
+                case waitM:
+                    text = "h:M:s:f";
+                    break;
+                case waitS:
+                    text = "h:m:S:f";
+                case waitF:
+                    text = "h:m:S:F";
+            }
+
+            text = "fps: " + fps + "  " + text;
+        }
+            this.setText(text);
         }
 
-        this.setText(text);
-    }
+        @Override
+        public void startInitialProcess () {
+            this.setForeground(Color.WHITE);
+            this.setText("fps: 999 Hh:Mm:Ss:Ff");
+        }
 
-    @Override
-    public void startInitialProcess() {
-        this.setForeground(Color.WHITE);
-        this.setText("Hh:Mm:Ss");
-    }
+        @Override
+        public void endInitialProcess () {
+            Dimension d = this.getSize();
+            this.setPreferredSize(d);
+            this.setForeground(Color.BLACK);
+        }
 
-    @Override
-    public void endInitialProcess() {
-        Dimension d = this.getSize();
-        this.setPreferredSize(d);
-        this.setForeground(Color.BLACK);
+    public void setFps(int fps) {
+        this.fps = fps;
     }
 }

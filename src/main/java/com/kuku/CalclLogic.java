@@ -36,7 +36,7 @@ public class CalclLogic {
 
         calcDisplay.showDisplay(registerDisp);
         calcDisplay.showRegistrAndOper(null, null);
-        calcDisplay.showStatus(calcState);
+        calcDisplay.showStatus(calcState, fps);
     }
 
     public void pressNum(int num) {
@@ -87,14 +87,14 @@ public class CalclLogic {
             }
         }
 
-        calcDisplay.showStatus(calcState);
+        calcDisplay.showStatus(calcState, this.fps);
 
     }
 
 
     public void chooseTimePart(CalcState calcState) {
         this.calcState = calcState;
-        calcDisplay.showStatus(calcState);
+        calcDisplay.showStatus(calcState, this.fps);
     }
 
 
@@ -107,7 +107,7 @@ public class CalclLogic {
 
         calcDisplay.showDisplay(registerDisp);
         calcDisplay.showRegistrAndOper(registerReg, operation);
-        calcDisplay.showStatus(calcState);
+        calcDisplay.showStatus(calcState, this.fps);
     }
 
     public void pressCommand(CommandType command) {
@@ -131,7 +131,7 @@ public class CalclLogic {
 
                     calcDisplay.showDisplay(registerDisp);
                     calcDisplay.showRegistrAndOper(null, null);
-                    calcDisplay.showStatus(calcState);
+                    calcDisplay.showStatus(calcState, this.fps);
                 }
                 break;
             case clearDisp:
@@ -184,7 +184,13 @@ public class CalclLogic {
     }
 
 
-
+    public void changeFPS(
+            int newFPS) {
+        if (this.fps != newFPS) {
+            this.fps = newFPS;
+            clearAll();
+        }
+    }
 
 
 }

@@ -15,8 +15,17 @@ public class DisplyRegister extends JLabel implements DisplyElementI {
     }
 
     private void showValue(int pi_sgn, int h, int m, int s, OperationType operationType) {
-            String sgn = (pi_sgn < 0) ? " - " : "   ";
-            this.setText(String.format("%s %02d:%02d:%02d  %s", sgn, h, m, s, operationType));
+        String sgn = (pi_sgn < 0) ? " - " : "   ";
+        this.setText(String.format("%s %02d:%02d:%02d  %s", sgn, h, m, s, operationType));
+    }
+
+    private void showValue(int pi_sgn, int h, int m, int s, int f, OperationType operationType) {
+        String sgn = (pi_sgn < 0) ? " - " : "   ";
+        if (f > 99) {
+            this.setText(String.format("%s %02d:%02d:%02d:%03d  %s", sgn, h, m, s, f, operationType));
+        } else {
+            this.setText(String.format("%s %02d:%02d:%02d:%02d  %s", sgn, h, m, s, f, operationType));
+        }
     }
 
     public void showValue(Time_POJO t, OperationType operationType) {
@@ -24,14 +33,19 @@ public class DisplyRegister extends JLabel implements DisplyElementI {
         if (t == null) {
             this.setText(" ");
         } else {
-            showValue(t.sign,t.H,t.M,t.S,operationType);
+            if (t.fps == 1) {
+                showValue(t.sign, t.H, t.M, t.S, operationType);
+            } else {
+                showValue(t.sign, t.H, t.M, t.S, t.F, operationType);
+            }
         }
+
     }
 
     @Override
     public void startInitialProcess() {
         this.setForeground(Color.WHITE);
-        this.showValue(-1,99,99,99,OperationType.add);
+        this.showValue(-1, 99, 99, 99, 999, OperationType.add);
     }
 
     @Override
