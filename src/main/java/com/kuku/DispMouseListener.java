@@ -44,8 +44,9 @@ public class DispMouseListener implements MouseListener{
             calclLogic.chooseTimePart(CalcState.waitM);
         } else if(s.equals(e.getComponent())) {
             calclLogic.chooseTimePart(CalcState.waitS);
+        } else if(f.equals(e.getComponent()) && f.isVisible() ) {
+            calclLogic.chooseTimePart(CalcState.waitF);
         }
-//TODO Реакция на клик по количеству кадров
     }
 
     @Override

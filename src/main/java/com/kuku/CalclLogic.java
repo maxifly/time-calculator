@@ -54,6 +54,10 @@ public class CalclLogic {
                 newValue = modifyArg(registerDisp.S, num);
                 registerDisp.S = validate(registerDisp.S, 59, newValue, num);
                 break;
+            case waitF:
+                newValue = modifyArg(registerDisp.F, num);
+                registerDisp.F = validate(registerDisp.F, this.fps-1, newValue, num);
+                break;
         }
 
 
@@ -71,11 +75,19 @@ public class CalclLogic {
                 case waitM:
                     this.calcState = CalcState.waitS;
                     break;
+                case waitS:
+                    if (this.fps != 1) {
+                        this.calcState = CalcState.waitF;
+                    }
+                    break;
                 default:
                     break;
             }
         } else {
             switch (calcState) {
+                case waitF:
+                    this.calcState = CalcState.waitS;
+                    break;
                 case waitS:
                     this.calcState = CalcState.waitM;
                     break;

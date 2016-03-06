@@ -141,6 +141,7 @@ public class DisplyResult extends JPanel implements DisplyElementI {
         h.setBorder(borderEmpty);
         m.setBorder(borderEmpty);
         s.setBorder(borderEmpty);
+        f.setBorder(borderEmpty);
 
         switch (state) {
             case waitH:
@@ -152,6 +153,8 @@ public class DisplyResult extends JPanel implements DisplyElementI {
             case waitS:
                 s.setBorder(border);
                 break;
+            case waitF:
+                f.setBorder(border);
         }
     }
 
