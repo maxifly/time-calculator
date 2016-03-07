@@ -7,13 +7,13 @@ import java.io.*;
  * Created by Maximus on 07.03.2016.
  */
 public class AppState implements Serializable {
-    private String fps;
+    private Integer fps;
     private Dimension dimension;
     private Point point;
 
 
 
-    public void setFps(String fps) {
+    public void setFps(Integer fps) {
         this.fps = fps;
     }
 
@@ -66,7 +66,7 @@ public class AppState implements Serializable {
     }
 
 
-    public String getFps() {
+    public Integer getFps() {
         return fps;
     }
 

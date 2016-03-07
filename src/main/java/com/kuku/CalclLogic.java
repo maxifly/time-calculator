@@ -26,6 +26,7 @@ public class CalclLogic {
     public void init() {
 
        this.calcDisplay.init();
+       this.fps = this.factory.getFpsCombo().getSelectedFPS();
     }
 
     public void clearAll() {

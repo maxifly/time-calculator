@@ -83,7 +83,6 @@ public class MainFrame extends JFrame {
        {
           this.setSize(appState.getDimension());
           this.setLocation(appState.getPoint());
-
        }
         //this.setSize(240,280);
 
@@ -109,7 +108,7 @@ public class MainFrame extends JFrame {
         calclLogic = factory.getCalclLogic();
 
         keyboardListener.setCalclLogic(calclLogic);
-        this.addWindowListener(new MainFrame_WindowListener());
+        this.addWindowListener(new MainFrame_WindowListener(factory));
 
         //YourClass.class.getResource("image/button1.png")
 

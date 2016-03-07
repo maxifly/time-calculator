@@ -10,31 +10,37 @@ import java.util.Map;
 public class FpsComboBox extends JComboBox<String> {
 
     private Map<String, Integer> fpsMap = new HashMap<>();
+    private Map<Integer, String> fpsMapToShow = new HashMap<>();
 
 
     public FpsComboBox() {
         super();
 
-        this.fpsMap.put("none", 1);
-        this.addItem("none");
-        this.fpsMap.put("24", 24);
-        this.addItem("24");
-        this.fpsMap.put("25", 25);
-        this.addItem("25");
-        this.fpsMap.put("30", 30);
-        this.addItem("30");
-        this.fpsMap.put("50", 50);
-        this.addItem("50");
-        this.fpsMap.put("60", 60);
-        this.addItem("60");
-        this.fpsMap.put("100", 100);
-        this.addItem("100");
+        String[] show = {"none", "24", "25", "30", "50", "60", "100"};
+        Integer[] values = {1, 24, 25, 30, 50, 60, 100};
+
+        for (int i = 0; i < values.length; i++) {
+            this.fpsMap.put(show[i], values[i]);
+            this.fpsMapToShow.put(values[i], show[i]);
+            this.addItem(show[i]);
+        }
+
+        AppState appState = AppState.load();
+        try {
+            if (appState != null) {
+                this.setSelectedItem(fpsMapToShow.get(appState.getFps()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public Integer getSelectedFPS() {
         String SelectedItem = (String) this.getSelectedItem();
         return this.fpsMap.get(SelectedItem);
-
     }
+
 
 }

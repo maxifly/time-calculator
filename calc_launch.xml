@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Work\JavaWork\time-calculator\target\calc-1.0-SNAPSHOT-jar-with-dependencies.jar</jar>
+  <jar>C:\Work\JavaWork\time-calculator\target\calc-1.0-jar-with-dependencies.jar</jar>
   <outfile>C:\Work\JavaWork\time-calculator\bin\calc_t.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
@@ -23,4 +23,16 @@
     <jdkPreference>preferJre</jdkPreference>
     <runtimeBits>64/32</runtimeBits>
   </jre>
+  <versionInfo>
+    <fileVersion>1.0.0.0</fileVersion>
+    <txtFileVersion>1.0</txtFileVersion>
+    <fileDescription>first version</fileDescription>
+    <copyright>kuku</copyright>
+    <productVersion>1.0.0.0</productVersion>
+    <txtProductVersion>1.0</txtProductVersion>
+    <productName>time calculator</productName>
+    <companyName></companyName>
+    <internalName>time calculator</internalName>
+    <originalFilename>calc_t.exe</originalFilename>
+  </versionInfo>
 </launch4jConfig>
