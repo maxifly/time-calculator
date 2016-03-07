@@ -74,8 +74,16 @@ public class MainFrame extends JFrame {
        this.add(mainPanel);
 
 
+       AppState appState = AppState.load();
+
+       if (appState == null) {
+           this.setSize(480,500); // TODO Надо как-то рассчитать размер окна
+       } else
+       {
+          this.setSize((int)appState.getDimensionW(),(int) appState.getDimensionH());
+       }
         //this.setSize(240,280);
-         this.setSize(480,500); // TODO Надо как-то рассчитать размер окна
+
         this.setResizable(true); // TODO Надо как-то рассчитать размер шрифта
 
 
@@ -98,7 +106,7 @@ public class MainFrame extends JFrame {
         calclLogic = factory.getCalclLogic();
 
         keyboardListener.setCalclLogic(calclLogic);
-
+        this.addWindowListener(new MainFrame_WindowListener());
 
         //YourClass.class.getResource("image/button1.png")
 
@@ -107,6 +115,9 @@ public class MainFrame extends JFrame {
 
         System.out.println(UIManager.getInstalledLookAndFeels());
         System.out.println(this.isFocusable());
+
+
+
 
     }
 
