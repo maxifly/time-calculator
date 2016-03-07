@@ -17,7 +17,8 @@ public class FpsComboBox extends JComboBox<String> {
 
         this.fpsMap.put("none", 1);
         this.addItem("none");
-
+        this.fpsMap.put("24", 24);
+        this.addItem("24");
         this.fpsMap.put("25", 25);
         this.addItem("25");
         this.fpsMap.put("30", 30);
@@ -26,6 +27,8 @@ public class FpsComboBox extends JComboBox<String> {
         this.addItem("50");
         this.fpsMap.put("60", 60);
         this.addItem("60");
+        this.fpsMap.put("100", 100);
+        this.addItem("100");
     }
 
     public Integer getSelectedFPS() {

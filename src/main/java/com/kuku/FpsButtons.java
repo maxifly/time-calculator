@@ -37,7 +37,5 @@ public class FpsButtons extends JPanel {
         gbc.anchor = GridBagConstraints.LINE_START;
         this.add(new JLabel(" "),gbc);
 
-// TODO Сделать расположение как в NumButtons
-
     }
 }

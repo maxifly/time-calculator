@@ -106,11 +106,11 @@ public class DisplyResult extends JPanel implements DisplyElementI {
         System.out.println(d);
     }
 
-    private void showValue(int SGN, int H, int M, int S, int F) {
+    private void showValue(int SGN, int H, int M, int S, int F, int fps) {
         h.setText(String.format("%02d", H));
         m.setText(String.format("%02d", M));
         s.setText(String.format("%02d", S));
-        if (F > 99) {
+        if (fps > 100) {
             f.setText(String.format("%03d", F));
         } else {
             f.setText(String.format("%02d", F));
@@ -133,7 +133,7 @@ public class DisplyResult extends JPanel implements DisplyElementI {
        if (t.fps == 1) {
            showValue(t.sign, t.H, t.M, t.S);
        } else {
-           showValue(t.sign, t.H, t.M, t.S, t.F);
+           showValue(t.sign, t.H, t.M, t.S, t.F, t.fps);
        }
     }
 
@@ -170,7 +170,7 @@ public class DisplyResult extends JPanel implements DisplyElementI {
         c2.setForeground(Color.WHITE);
         cf.setForeground(Color.WHITE);
 
-        showValue(-1, 99, 99, 99, 999);
+        showValue(-1, 99, 99, 99, 999,101);
         h.setBorder(border);
         m.setBorder(border);
         s.setBorder(border);
