@@ -78,9 +78,12 @@ public class MainFrame extends JFrame {
 
        if (appState == null) {
            this.setSize(480,500); // TODO Надо как-то рассчитать размер окна
+           this.setLocationRelativeTo(null);
        } else
        {
-          this.setSize((int)appState.getDimensionW(),(int) appState.getDimensionH());
+          this.setSize(appState.getDimension());
+          this.setLocation(appState.getPoint());
+
        }
         //this.setSize(240,280);
 
@@ -92,7 +95,7 @@ public class MainFrame extends JFrame {
 
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
+
 
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventDispatcher(keyboardListener);

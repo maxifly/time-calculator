@@ -15,17 +15,15 @@ public class MainFrame_WindowListener implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-      System.out.println("closing ");
-      AppState appState = new AppState();
+        System.out.println("closing ");
+        AppState appState = new AppState();
 
-      MainFrame mf = (MainFrame) e.getSource();
-      Dimension dm = mf.getSize();
-      appState.setDimensionH(dm.getHeight());
-      appState.setDimensionW(dm.getWidth());
-      AppState.save(appState);
-
-
-
+        MainFrame mf = (MainFrame) e.getSource();
+        Dimension dm = mf.getSize();
+        Point point = mf.getLocation();
+        appState.setDimension(dm);
+        appState.setPoint(point);
+        AppState.save(appState);
     }
 
     @Override

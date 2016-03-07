@@ -1,5 +1,6 @@
 package com.kuku;
 
+import java.awt.*;
 import java.io.*;
 
 /**
@@ -7,20 +8,13 @@ import java.io.*;
  */
 public class AppState implements Serializable {
     private String fps;
-    private double DimensionH;
-    private double DimensionW;
+    private Dimension dimension;
+    private Point point;
+
 
 
     public void setFps(String fps) {
         this.fps = fps;
-    }
-
-    public void setDimensionH(double dimensionH) {
-        DimensionH = dimensionH;
-    }
-
-    public void setDimensionW(double dimensionW) {
-        DimensionW = dimensionW;
     }
 
     public static void save(AppState appState) {
@@ -72,15 +66,23 @@ public class AppState implements Serializable {
     }
 
 
-    public double getDimensionH() {
-        return DimensionH;
-    }
-
-    public double getDimensionW() {
-        return DimensionW;
-    }
-
     public String getFps() {
         return fps;
+    }
+
+    public Dimension getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(Dimension dimension) {
+        this.dimension = dimension;
+    }
+
+    public Point getPoint() {
+        return point;
+    }
+
+    public void setPoint(Point point) {
+        this.point = point;
     }
 }
