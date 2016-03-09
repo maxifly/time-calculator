@@ -13,10 +13,12 @@ public class CalclLogic {
     private CalcState calcState = CalcState.waitH;
 
     private CalcDisplay calcDisplay;
+    private NumButtons numButtons;
 
 
     public CalclLogic(ElementFactory factory) {
         this.factory = factory;
+        this.numButtons = factory //TODO Get num buttons
     }
 
     public void setCalcDisplay(CalcDisplay calcDisplay) {
@@ -188,6 +190,7 @@ public class CalclLogic {
                 result = frames_argA - frames_argB;
                 return new Time_POJO(result, argA.fps);
             case div:
+
                 return new Float(new Float(frames_argA) / new Float(frames_argB));
             default:
                 result = 0;

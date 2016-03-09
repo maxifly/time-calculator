@@ -6,7 +6,10 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Maxim.Pantuhin on 08.10.2014.
@@ -71,6 +74,27 @@ public class NumButtons extends JPanel {
         }
         // b.setFont(b.getFont().deriveFont((float) ii))
 
+    }
+
+    public void disableButtons(ButtonsType[] excludeButtons) {
+        Map<ButtonsType,JButton> allButtons = factory.getAllButtons();
+        Set<ButtonsType> exclude = new HashSet<ButtonsType>(Arrays.asList(excludeButtons));
+
+        for (Map.Entry<ButtonsType,JButton> btn:  allButtons.entrySet()){
+          if (!exclude.contains(btn.getKey()) && btn.getValue().isEnabled()) {
+              btn.getValue().setEnabled(false);
+          }
+        }
+    }
+
+    public void enableButtons() {
+        Map<ButtonsType,JButton> allButtons = factory.getAllButtons();
+
+        for (Map.Entry<ButtonsType,JButton> btn:  allButtons.entrySet()){
+            if (!btn.getValue().isEnabled()) {
+                btn.getValue().setEnabled(true);
+            }
+        }
     }
 
 
