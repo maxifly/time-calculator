@@ -25,8 +25,8 @@ public class CalclLogic {
 
     public void init() {
 
-       this.calcDisplay.init();
-       this.fps = this.factory.getFpsCombo().getSelectedFPS();
+        this.calcDisplay.init();
+        this.fps = this.factory.getFpsCombo().getSelectedFPS();
     }
 
     public void clearAll() {
@@ -57,7 +57,7 @@ public class CalclLogic {
                 break;
             case waitF:
                 newValue = modifyArg(registerDisp.F, num);
-                registerDisp.F = validate(registerDisp.F, this.fps-1, newValue, num);
+                registerDisp.F = validate(registerDisp.F, this.fps - 1, newValue, num);
                 break;
         }
 
@@ -68,7 +68,7 @@ public class CalclLogic {
     }
 
     public void pressColon(boolean toBack) {
-        if (! toBack) {
+        if (!toBack) {
             switch (calcState) {
                 case waitH:
                     this.calcState = CalcState.waitM;
@@ -111,7 +111,6 @@ public class CalclLogic {
     }
 
 
-
     public void pressOperation(OperationType operation) {
         this.calcState = CalcState.waitH;
         this.registerReg = this.registerDisp;
@@ -135,8 +134,19 @@ public class CalclLogic {
                 break;
             case eq:
                 if (operation != null) {
-                    Time_POJO result = (Time_POJO) calculate(this.registerReg,this.registerDisp,operation);
-                    registerDisp = result;
+
+                    switch (operation) {
+                        case add:
+                        case sub:
+                            Time_POJO result = (Time_POJO) calculate(this.registerReg, this.registerDisp, operation);
+                            registerDisp = result;
+                            break;
+                        case div:
+                            Float resultDigit = (Float) calculate(this.registerReg, this.registerDisp, operation);
+                            registerDisp = new Time_POJO(0, 1); // TODO Убрать заглушку;
+                    }
+
+
                     calcState = CalcState.waitH;
                     operation = null;
 
@@ -161,7 +171,6 @@ public class CalclLogic {
 
 
     /**
-     *
      * @return new Time_POJO
      */
     private Object calculate(Time_POJO argA, Time_POJO argB, OperationType operation) {
@@ -176,6 +185,8 @@ public class CalclLogic {
             case sub:
                 result = frames_argA - frames_argB;
                 return new Time_POJO(result, argA.fps);
+            case div:
+                return new Float(frames_argA / frames_argB);
             default:
                 result = 0;
                 return new Time_POJO(result, argA.fps);

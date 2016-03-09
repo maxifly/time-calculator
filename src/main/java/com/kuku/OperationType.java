@@ -5,7 +5,10 @@ package com.kuku;
  */
 public enum OperationType {
     add,
-    sub;
+    sub,
+    div,
+    div_on_dig,
+    mult_on_dig;
 
     @Override
     public String toString() {
@@ -14,6 +17,12 @@ public enum OperationType {
                 return "+";
             case sub:
                 return "-";
+            case div:
+                return "/";
+            case div_on_dig:
+                return "/dg";
+            case mult_on_dig:
+                return "*";
         }
         return super.toString();
     }
