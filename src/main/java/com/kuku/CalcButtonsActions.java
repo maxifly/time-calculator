@@ -43,6 +43,15 @@ public class CalcButtonsActions implements ActionListener {
             case "-":
                 calclLogic.pressOperation(OperationType.sub);
                 break;
+            case "/":
+                calclLogic.pressOperation(OperationType.div);
+                break;
+            case "/dg":
+                calclLogic.pressOperation(OperationType.div_on_dig);
+                break;
+            case "*":
+                calclLogic.pressOperation(OperationType.mult_on_dig);
+                break;
             case "=":
                 calclLogic.pressCommand(CommandType.eq);
                 break;

@@ -32,7 +32,8 @@ public class MainFrame extends JFrame {
 
         ElementFactory factory = new ElementFactory();
 
-        CalcDisplay calcDisplay = new CalcDisplay(factory);
+        CalcDisplay calcDisplay = factory.getCalcDisplay();
+
         numButtons = new NumButtons(factory);
         fpsButtons = new FpsButtons(factory);
 

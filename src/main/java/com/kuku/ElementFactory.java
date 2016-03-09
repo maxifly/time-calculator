@@ -23,7 +23,7 @@ public class ElementFactory {
     private FpsCombo_ActionListener fpsCombo_actionListener;
 
 
-
+    private CalcDisplay calcDisplay;
     private CalclLogic calclLogic;
 
     private CalcButtonsActions calcButtonsActions = new CalcButtonsActions(calclLogic);
@@ -33,7 +33,8 @@ public class ElementFactory {
         this.calclLogic = new CalclLogic(this);
         this.calcButtonsActions = new CalcButtonsActions(calclLogic);
         this.displyResult =  new DisplyResult(calclLogic);
-        calclLogic.setCalcDisplay(new CalcDisplay(this));
+        this.calcDisplay = new CalcDisplay(this);
+        calclLogic.setCalcDisplay(this.calcDisplay);
         this.fpsCombo_actionListener = new FpsCombo_ActionListener(calclLogic);
         this.fpsCombo.addActionListener(this.fpsCombo_actionListener);
 
@@ -91,5 +92,9 @@ public class ElementFactory {
 
     public FpsComboBox getFpsCombo() {
         return fpsCombo;
+    }
+
+    public CalcDisplay getCalcDisplay() {
+        return calcDisplay;
     }
 }

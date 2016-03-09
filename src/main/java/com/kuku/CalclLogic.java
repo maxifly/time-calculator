@@ -140,18 +140,20 @@ public class CalclLogic {
                         case sub:
                             Time_POJO result = (Time_POJO) calculate(this.registerReg, this.registerDisp, operation);
                             registerDisp = result;
+                            calcDisplay.showDisplay(registerDisp);
                             break;
                         case div:
                             Float resultDigit = (Float) calculate(this.registerReg, this.registerDisp, operation);
-                            registerDisp = new Time_POJO(0, 1); // TODO Убрать заглушку;
+                            System.out.println("result "+ resultDigit);
+                            calcDisplay.showDisplay(resultDigit);
+                            // TODO надо выставить состояние ожидания для сброса калькулятора
                     }
 
 
                     calcState = CalcState.waitH;
+
                     operation = null;
 
-
-                    calcDisplay.showDisplay(registerDisp);
                     calcDisplay.showRegistrAndOper(null, null);
                     calcDisplay.showStatus(calcState, this.fps);
                 }

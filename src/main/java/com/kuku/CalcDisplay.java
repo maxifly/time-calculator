@@ -8,15 +8,36 @@ import java.awt.*;
  */
 public class CalcDisplay extends JPanel {
     private DisplyHelp dispHelp;
-    private DisplyResult dispResult;
+    private DisplyResult dispTimeResult;
     private DisplyRegister dispRegister;
+    private JLabel digitResult = new JLabel();
+    private CardLayout dispResultLayout = new CardLayout();
+    private JPanel dispResult = new JPanel();
+
+    final static String TIME_PANEL = "Time_panel";
+    final static String DIGIT_PANEL = "Digit_panel";
 
     public CalcDisplay( ElementFactory factory) {
 
         dispHelp = factory.getHelpRow();
-        dispResult = factory.getDisplayResult();
+        dispTimeResult = factory.getDisplayResult();
         dispRegister = factory.getRegistrRow();
 
+        JPanel dgPanel = new JPanel();
+        dgPanel.add(digitResult);
+
+        dispResult.setLayout(dispResultLayout);
+
+        CardLayout cardLayout = (CardLayout)(dispResult.getLayout());
+
+        dispResult.add(dispTimeResult,TIME_PANEL);
+        CardLayout cardLayout2 = (CardLayout)(dispResult.getLayout());
+        dispResult.add(dgPanel,DIGIT_PANEL);
+
+        CardLayout cardLayout3 = (CardLayout)(dispResult.getLayout());
+
+        dispResultLayout.show(dispResult,TIME_PANEL);
+       // dispResultLayout.show(dispResult,DIGIT_PANEL);
         GridBagLayout gridBagLayout = new GridBagLayout();
         this.setLayout(gridBagLayout);
 
@@ -78,7 +99,7 @@ public class CalcDisplay extends JPanel {
     public void showStatus(CalcState state, int fps) {
         dispHelp.setFps(fps);
         dispHelp.showValue(state);
-        dispResult.setChooseRegion(state);
+        dispTimeResult.setChooseRegion(state);
     }
 
     public void showRegistrAndOper(Time_POJO time, OperationType operation) {
@@ -93,12 +114,26 @@ public class CalcDisplay extends JPanel {
 //    }
 
     public void showDisplay(Time_POJO time) {
-        dispResult.showValue(time);
+        //dispResultLayout.show(dispResult,TIME_PANEL);
+        CardLayout cardLayout = (CardLayout)(dispResult.getLayout());
+        cardLayout.show(dispResult,TIME_PANEL);
+
+        System.out.println("show time");
+        System.out.println("cardLayout" + cardLayout);
+
+        dispTimeResult.showValue(time);
     }
 
+    public void showDisplay(Float digitValue) {
+        dispResultLayout.show(dispResult,DIGIT_PANEL);
+        System.out.println("show digit");
+        digitResult.setText(String.format("%f",digitValue));
+
+
+    }
 
     public void init() {
-        dispResult.startInitialProcess();
+        dispTimeResult.startInitialProcess();
         dispRegister.startInitialProcess();
         dispHelp.startInitialProcess();
 
@@ -109,7 +144,7 @@ public class CalcDisplay extends JPanel {
             }
 
         dispHelp.endInitialProcess();
-        dispResult.endInitialProcess();
+        dispTimeResult.endInitialProcess();
         dispRegister.endInitialProcess();
 
     }

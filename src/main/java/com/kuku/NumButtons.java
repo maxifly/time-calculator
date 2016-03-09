@@ -50,8 +50,12 @@ public class NumButtons extends JPanel {
 
         this.add(factory.getButton(ButtonsType.changeSgn),getConstraint(5,1));
         this.add(factory.getButton(ButtonsType.add),getConstraint(5,2));
-        this.add(factory.getButton(ButtonsType.sub), getConstraint(5,3));
-        this.add(factory.getButton(ButtonsType.result), getConstraint(6,2,2));
+        this.add(factory.getButton(ButtonsType.sub), getConstraint(6,2));
+        this.add(factory.getButton(ButtonsType.mult_on_dg),getConstraint(5,3));
+        this.add(factory.getButton(ButtonsType.div), getConstraint(6,3));
+        this.add(factory.getButton(ButtonsType.div_on_dg),getConstraint(5,4));
+
+        this.add(factory.getButton(ButtonsType.result), getConstraint(7,2,3));
 
 
 

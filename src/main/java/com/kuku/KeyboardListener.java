@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
  */
 public class KeyboardListener implements KeyEventDispatcher {
     private CalclLogic calclLogic;
+    private String strAlt = "Alt";
 
     public void setCalclLogic(CalclLogic calclLogic) {
         this.calclLogic = calclLogic;
@@ -46,6 +47,16 @@ public class KeyboardListener implements KeyEventDispatcher {
                 case '-':
                     calclLogic.pressOperation(OperationType.sub);
                     break;
+                case '*':
+                    calclLogic.pressOperation(OperationType.mult_on_dig);
+                    break;
+                case '/':
+                    if (strAlt.equals(KeyEvent.getKeyModifiersText(e.getModifiers()))) {
+                        calclLogic.pressOperation(OperationType.div_on_dig);
+                    } else {
+                        calclLogic.pressOperation(OperationType.div);
+                    }
+                    break;
                 case '=':
                 case KeyEvent.VK_ENTER:
                     calclLogic.pressCommand(CommandType.eq);
@@ -56,8 +67,8 @@ public class KeyboardListener implements KeyEventDispatcher {
             if (e.isActionKey()) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == e.VK_RIGHT || keyCode == e.VK_KP_RIGHT) {
-                   calclLogic.pressColon(false);
-                } else if (keyCode == e.VK_LEFT || keyCode == e.VK_KP_LEFT ) {
+                    calclLogic.pressColon(false);
+                } else if (keyCode == e.VK_LEFT || keyCode == e.VK_KP_LEFT) {
                     calclLogic.pressColon(true);
                 }
 
