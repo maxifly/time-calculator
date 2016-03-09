@@ -3,3 +3,4 @@ target/classes/*
 target/maven-archiver/pom.properties
 .idea/*
 app_state.txt
+*.iml

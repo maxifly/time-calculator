@@ -135,9 +135,8 @@ public class CalclLogic {
                 break;
             case eq:
                 if (operation != null) {
-                    int result = calculate();
-                    System.out.println(result);
-                    registerDisp = new Time_POJO(result, fps);
+                    Time_POJO result = (Time_POJO) calculate(this.registerReg,this.registerDisp,operation);
+                    registerDisp = result;
                     calcState = CalcState.waitH;
                     operation = null;
 
@@ -161,19 +160,26 @@ public class CalclLogic {
     }
 
 
-    private int calculate() {
-        int argA = registerReg.getFrames();
-        int argB = registerDisp.getFrames();
+    /**
+     *
+     * @return new Time_POJO
+     */
+    private Object calculate(Time_POJO argA, Time_POJO argB, OperationType operation) {
+        int frames_argA = argA.getFrames();
+        int frames_argB = argB.getFrames();
+        int result;
 
         switch (operation) { //TODO Может перевести на рассчет с двумя входящими параметрами типа Time_POJO
             case add:
-                return argA + argB;
+                result = frames_argA + frames_argB;
+                return new Time_POJO(result, argA.fps);
             case sub:
-                return argA - argB;
+                result = frames_argA - frames_argB;
+                return new Time_POJO(result, argA.fps);
             default:
-                return 0;
+                result = 0;
+                return new Time_POJO(result, argA.fps);
         }
-
     }
 
 
