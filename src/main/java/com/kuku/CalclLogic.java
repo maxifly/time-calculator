@@ -180,7 +180,7 @@ public class CalclLogic {
         int frames_argB = argB.getFrames();
         int result;
 
-        switch (operation) { //TODO Может перевести на рассчет с двумя входящими параметрами типа Time_POJO
+        switch (operation) {
             case add:
                 result = frames_argA + frames_argB;
                 return new Time_POJO(result, argA.fps);
@@ -188,7 +188,7 @@ public class CalclLogic {
                 result = frames_argA - frames_argB;
                 return new Time_POJO(result, argA.fps);
             case div:
-                return new Float(frames_argA / frames_argB);
+                return new Float(new Float(frames_argA) / new Float(frames_argB));
             default:
                 result = 0;
                 return new Time_POJO(result, argA.fps);

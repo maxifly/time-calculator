@@ -10,7 +10,7 @@ public class CalcDisplay extends JPanel {
     private DisplyHelp dispHelp;
     private DisplyResult dispTimeResult;
     private DisplyRegister dispRegister;
-    private JLabel digitResult = new JLabel();
+    private JLabel digitResult;
     private CardLayout dispResultLayout = new CardLayout();
     private JPanel dispResult = new JPanel();
 
@@ -24,18 +24,20 @@ public class CalcDisplay extends JPanel {
         dispRegister = factory.getRegistrRow();
 
         JPanel dgPanel = new JPanel();
-        dgPanel.add(digitResult);
+        dgPanel.setLayout(new BorderLayout());
+
+        digitResult = new JLabel();
+        UIDefaults uid = UIManager.getDefaults();
+        Font font = new Font(uid.getFont("TextPane.font").getFontName(), Font.BOLD, 25);
+        digitResult.setFont(font);
+        dgPanel.setBackground(Color.WHITE);
+        dgPanel.add(digitResult,BorderLayout.LINE_END);
 
         dispResult.setLayout(dispResultLayout);
 
-        CardLayout cardLayout = (CardLayout)(dispResult.getLayout());
 
         dispResult.add(dispTimeResult,TIME_PANEL);
-        CardLayout cardLayout2 = (CardLayout)(dispResult.getLayout());
         dispResult.add(dgPanel,DIGIT_PANEL);
-
-        CardLayout cardLayout3 = (CardLayout)(dispResult.getLayout());
-
         dispResultLayout.show(dispResult,TIME_PANEL);
        // dispResultLayout.show(dispResult,DIGIT_PANEL);
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -127,7 +129,7 @@ public class CalcDisplay extends JPanel {
     public void showDisplay(Float digitValue) {
         dispResultLayout.show(dispResult,DIGIT_PANEL);
         System.out.println("show digit");
-        digitResult.setText(String.format("%f",digitValue));
+        digitResult.setText(String.format("%1.2f",digitValue));
 
 
     }
