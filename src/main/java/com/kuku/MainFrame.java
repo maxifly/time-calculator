@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
 
         CalcDisplay calcDisplay = factory.getCalcDisplay();
 
-        numButtons = new NumButtons(factory);
+        numButtons = factory.getNumButtons();
         fpsButtons = new FpsButtons(factory);
 
         calcDisplay.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));

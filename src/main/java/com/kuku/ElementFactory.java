@@ -27,6 +27,7 @@ public class ElementFactory {
     private CalclLogic calclLogic;
 
     private CalcButtonsActions calcButtonsActions = new CalcButtonsActions(calclLogic);
+    private NumButtons numButtons;
 
     public ElementFactory() {
         super();
@@ -37,8 +38,8 @@ public class ElementFactory {
         calclLogic.setCalcDisplay(this.calcDisplay);
         this.fpsCombo_actionListener = new FpsCombo_ActionListener(calclLogic);
         this.fpsCombo.addActionListener(this.fpsCombo_actionListener);
-
-
+        this.numButtons = new NumButtons(this);
+        this.calclLogic.setNumButtons(this.numButtons);
 
     }
 
@@ -96,5 +97,9 @@ public class ElementFactory {
 
     public CalcDisplay getCalcDisplay() {
         return calcDisplay;
+    }
+
+    public NumButtons getNumButtons() {
+        return numButtons;
     }
 }

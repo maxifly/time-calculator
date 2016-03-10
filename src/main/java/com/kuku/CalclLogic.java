@@ -14,11 +14,10 @@ public class CalclLogic {
 
     private CalcDisplay calcDisplay;
     private NumButtons numButtons;
-
+    private ButtonsType[] clearButtons = {ButtonsType.cmd_C};
 
     public CalclLogic(ElementFactory factory) {
         this.factory = factory;
-        this.numButtons = factory //TODO Get num buttons
     }
 
     public void setCalcDisplay(CalcDisplay calcDisplay) {
@@ -148,7 +147,10 @@ public class CalclLogic {
                             Float resultDigit = (Float) calculate(this.registerReg, this.registerDisp, operation);
                             System.out.println("result "+ resultDigit);
                             calcDisplay.showDisplay(resultDigit);
+
+                            numButtons.disableButtons(clearButtons);
                             // TODO надо выставить состояние ожидания для сброса калькулятора
+                            // TODO где-то надо добавить разрешение всех клавиш калькулятора после сброса
                     }
 
 
@@ -228,6 +230,9 @@ public class CalclLogic {
     }
 
 
+    public void setNumButtons(NumButtons numButtons) {
+        this.numButtons = numButtons;
+    }
 }
 
 
