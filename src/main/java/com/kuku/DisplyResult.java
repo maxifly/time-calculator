@@ -1,14 +1,9 @@
 package com.kuku;
 
-import com.sun.org.apache.xpath.internal.operations.*;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.font.TextAttribute;
 import java.lang.String;
-import java.util.Map;
 
 /**
  * Created by Maxim.Pantuhin on 08.10.2014.
@@ -137,7 +132,7 @@ public class DisplyResult extends JPanel implements DisplyElementI {
        }
     }
 
-    public void setChooseRegion(CalcState state) {
+    public void setChooseRegion(CalcResultRegionState state) {
         h.setBorder(borderEmpty);
         m.setBorder(borderEmpty);
         s.setBorder(borderEmpty);

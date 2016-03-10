@@ -78,13 +78,16 @@ public class NumButtons extends JPanel {
 
     public void disableButtons(ButtonsType[] excludeButtons) {
         Map<ButtonsType,JButton> allButtons = factory.getAllButtons();
-        Set<ButtonsType> exclude = new HashSet<ButtonsType>(Arrays.asList(excludeButtons));
+        Set<ButtonsType> exclude = new HashSet<>(Arrays.asList(excludeButtons));
 
         for (Map.Entry<ButtonsType,JButton> btn:  allButtons.entrySet()){
           if (!exclude.contains(btn.getKey()) && btn.getValue().isEnabled()) {
               btn.getValue().setEnabled(false);
+          } else {
+              btn.getValue().requestFocus();
           }
         }
+
     }
 
     public void enableButtons() {

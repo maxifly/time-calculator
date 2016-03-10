@@ -39,13 +39,13 @@ public class DispMouseListener implements MouseListener{
         System.out.println(e);
 
         if (h.equals(e.getComponent())) {
-            calclLogic.chooseTimePart(CalcState.waitH);
+            calclLogic.chooseTimePart(CalcResultRegionState.waitH);
         } else if (m.equals(e.getComponent())) {
-            calclLogic.chooseTimePart(CalcState.waitM);
+            calclLogic.chooseTimePart(CalcResultRegionState.waitM);
         } else if(s.equals(e.getComponent())) {
-            calclLogic.chooseTimePart(CalcState.waitS);
+            calclLogic.chooseTimePart(CalcResultRegionState.waitS);
         } else if(f.equals(e.getComponent()) && f.isVisible() ) {
-            calclLogic.chooseTimePart(CalcState.waitF);
+            calclLogic.chooseTimePart(CalcResultRegionState.waitF);
         }
     }
 

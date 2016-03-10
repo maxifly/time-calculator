@@ -18,7 +18,7 @@ public class DisplyHelp extends JLabel implements DisplyElementI {
 
     }
 
-    public void showValue(CalcState calcState) {
+    public void showValue(CalcResultRegionState calcState) {
         String text = null;
 
         if (this.fps == 1) {

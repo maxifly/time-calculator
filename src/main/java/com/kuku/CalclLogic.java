@@ -10,11 +10,11 @@ public class CalclLogic {
     private Time_POJO registerReg = null;
 
     private OperationType operation = null;
-    private CalcState calcState = CalcState.waitH;
+    private CalcState calcState = new CalcState();
 
     private CalcDisplay calcDisplay;
     private NumButtons numButtons;
-    private ButtonsType[] clearButtons = {ButtonsType.cmd_C};
+    private ButtonsType[] clearButtons = {ButtonsType.cmd_C, ButtonsType.cmd_CE};
 
     public CalclLogic(ElementFactory factory) {
         this.factory = factory;
@@ -34,7 +34,8 @@ public class CalclLogic {
         this.registerDisp = new Time_POJO(0, fps);
         this.registerReg = new Time_POJO(0, fps);
         this.operation = null;
-        this.calcState = CalcState.waitH;
+        this.calcState.setResultRegionState(CalcResultRegionState.waitH);
+        numButtons.enableButtons();
 
         calcDisplay.showDisplay(registerDisp);
         calcDisplay.showRegistrAndOper(null, null);
@@ -43,7 +44,7 @@ public class CalclLogic {
 
     public void pressNum(int num) {
         int newValue = 0;
-        switch (calcState) {
+        switch (calcState.getResultRegionState()) {
             case waitH:
                 newValue = modifyArg(registerDisp.H, num);
                 registerDisp.H = validate(registerDisp.H, 23, newValue, num);
@@ -70,31 +71,31 @@ public class CalclLogic {
 
     public void pressColon(boolean toBack) {
         if (!toBack) {
-            switch (calcState) {
+            switch (calcState.getResultRegionState()) {
                 case waitH:
-                    this.calcState = CalcState.waitM;
+                    this.calcState.setResultRegionState(CalcResultRegionState.waitM);
                     break;
                 case waitM:
-                    this.calcState = CalcState.waitS;
+                    this.calcState.setResultRegionState(CalcResultRegionState.waitS);
                     break;
                 case waitS:
                     if (this.fps != 1) {
-                        this.calcState = CalcState.waitF;
+                        this.calcState.setResultRegionState(CalcResultRegionState.waitF);
                     }
                     break;
                 default:
                     break;
             }
         } else {
-            switch (calcState) {
+            switch (calcState.getResultRegionState()) {
                 case waitF:
-                    this.calcState = CalcState.waitS;
+                    this.calcState.setResultRegionState(CalcResultRegionState.waitS);
                     break;
                 case waitS:
-                    this.calcState = CalcState.waitM;
+                    this.calcState.setResultRegionState(CalcResultRegionState.waitM);
                     break;
                 case waitM:
-                    this.calcState = CalcState.waitH;
+                    this.calcState.setResultRegionState(CalcResultRegionState.waitH);
                     break;
                 default:
                     break;
@@ -106,14 +107,14 @@ public class CalclLogic {
     }
 
 
-    public void chooseTimePart(CalcState calcState) {
-        this.calcState = calcState;
-        calcDisplay.showStatus(calcState, this.fps);
+    public void chooseTimePart(CalcResultRegionState calcState) {
+        this.calcState.setResultRegionState(calcState);
+        calcDisplay.showStatus(this.calcState, this.fps);
     }
 
 
     public void pressOperation(OperationType operation) {
-        this.calcState = CalcState.waitH;
+        this.calcState.setResultRegionState(CalcResultRegionState.waitH);
         this.registerReg = this.registerDisp;
         this.operation = operation;
         this.registerDisp = new Time_POJO(0, fps);
@@ -154,7 +155,7 @@ public class CalclLogic {
                     }
 
 
-                    calcState = CalcState.waitH;
+                    calcState.setResultRegionState(CalcResultRegionState.waitH);
 
                     operation = null;
 
@@ -165,6 +166,7 @@ public class CalclLogic {
             case clearDisp:
                 registerDisp = new Time_POJO(0, fps);
                 calcDisplay.showDisplay(registerDisp);
+                numButtons.enableButtons();
                 break;
             case restart:
                 clearAll();

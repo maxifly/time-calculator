@@ -100,8 +100,8 @@ public class CalcDisplay extends JPanel {
 
     public void showStatus(CalcState state, int fps) {
         dispHelp.setFps(fps);
-        dispHelp.showValue(state);
-        dispTimeResult.setChooseRegion(state);
+        dispHelp.showValue(state.getResultRegionState());
+        dispTimeResult.setChooseRegion(state.getResultRegionState());
     }
 
     public void showRegistrAndOper(Time_POJO time, OperationType operation) {
