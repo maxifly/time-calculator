@@ -8,6 +8,7 @@ package com.kuku;
 public class CalcState {
     private CalcResultRegionState resultRegionState = CalcResultRegionState.waitH;
     private boolean waitReset = false;
+    private int fps;
 
 
     public CalcResultRegionState getResultRegionState() {
@@ -24,5 +25,13 @@ public class CalcState {
 
     public void setWaitReset(boolean waitReset) {
         this.waitReset = waitReset;
+    }
+
+    public int getFps() {
+        return fps;
+    }
+
+    public void setFps(int fps) {
+        this.fps = fps;
     }
 }

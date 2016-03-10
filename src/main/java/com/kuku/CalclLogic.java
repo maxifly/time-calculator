@@ -5,7 +5,7 @@ package com.kuku;
  */
 public class CalclLogic {
     ElementFactory factory;
-    private int fps = 1;
+    //private int fps = 1;
     private Time_POJO registerDisp = null;
     private Time_POJO registerReg = null;
 
@@ -27,19 +27,19 @@ public class CalclLogic {
     public void init() {
 
         this.calcDisplay.init();
-        this.fps = this.factory.getFpsCombo().getSelectedFPS();
+        this.calcState.setFps(this.factory.getFpsCombo().getSelectedFPS());
     }
 
     public void clearAll() {
-        this.registerDisp = new Time_POJO(0, fps);
-        this.registerReg = new Time_POJO(0, fps);
+        this.registerDisp = new Time_POJO(0, calcState.getFps());
+        this.registerReg = new Time_POJO(0, calcState.getFps());
         this.operation = null;
         this.calcState.setResultRegionState(CalcResultRegionState.waitH);
         numButtons.enableButtons();
 
         calcDisplay.showDisplay(registerDisp);
         calcDisplay.showRegistrAndOper(null, null);
-        calcDisplay.showStatus(calcState, fps);
+        calcDisplay.showStatus(calcState);
     }
 
     public void pressNum(int num) {
@@ -59,7 +59,7 @@ public class CalclLogic {
                 break;
             case waitF:
                 newValue = modifyArg(registerDisp.F, num);
-                registerDisp.F = validate(registerDisp.F, this.fps - 1, newValue, num);
+                registerDisp.F = validate(registerDisp.F, this.calcState.getFps() - 1, newValue, num);
                 break;
         }
 
@@ -79,7 +79,7 @@ public class CalclLogic {
                     this.calcState.setResultRegionState(CalcResultRegionState.waitS);
                     break;
                 case waitS:
-                    if (this.fps != 1) {
+                    if (this.calcState.getFps() != 1) {
                         this.calcState.setResultRegionState(CalcResultRegionState.waitF);
                     }
                     break;
@@ -102,14 +102,14 @@ public class CalclLogic {
             }
         }
 
-        calcDisplay.showStatus(calcState, this.fps);
+        calcDisplay.showStatus(calcState);
 
     }
 
 
     public void chooseTimePart(CalcResultRegionState calcState) {
         this.calcState.setResultRegionState(calcState);
-        calcDisplay.showStatus(this.calcState, this.fps);
+        calcDisplay.showStatus(this.calcState);
     }
 
 
@@ -117,11 +117,11 @@ public class CalclLogic {
         this.calcState.setResultRegionState(CalcResultRegionState.waitH);
         this.registerReg = this.registerDisp;
         this.operation = operation;
-        this.registerDisp = new Time_POJO(0, fps);
+        this.registerDisp = new Time_POJO(0, calcState.getFps());
 
         calcDisplay.showDisplay(registerDisp);
         calcDisplay.showRegistrAndOper(registerReg, operation);
-        calcDisplay.showStatus(calcState, this.fps);
+        calcDisplay.showStatus(calcState);
     }
 
     public void pressCommand(CommandType command) {
@@ -160,11 +160,11 @@ public class CalclLogic {
                     operation = null;
 
                     calcDisplay.showRegistrAndOper(null, null);
-                    calcDisplay.showStatus(calcState, this.fps);
+                    calcDisplay.showStatus(calcState);
                 }
                 break;
             case clearDisp:
-                registerDisp = new Time_POJO(0, fps);
+                registerDisp = new Time_POJO(0, calcState.getFps());
                 calcDisplay.showDisplay(registerDisp);
                 numButtons.enableButtons();
                 break;
@@ -225,8 +225,8 @@ public class CalclLogic {
 
     public void changeFPS(
             int newFPS) {
-        if (this.fps != newFPS) {
-            this.fps = newFPS;
+        if (this.calcState.getFps() != newFPS) {
+            this.calcState.setFps(newFPS);
             clearAll();
         }
     }
