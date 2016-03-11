@@ -35,6 +35,8 @@ public class CalclLogic {
         this.registerReg = new Time_POJO(0, calcState.getFps());
         this.operation = null;
         this.calcState.setResultRegionState(CalcResultRegionState.waitH);
+        this.calcState.setWaitReset(false);
+
         numButtons.enableButtons();
 
         calcDisplay.showDisplay(registerDisp);
@@ -43,6 +45,10 @@ public class CalclLogic {
     }
 
     public void pressNum(int num) {
+        if(calcState.isWaitReset()) {
+            return;
+        }
+
         int newValue = 0;
         switch (calcState.getResultRegionState()) {
             case waitH:
@@ -70,6 +76,9 @@ public class CalclLogic {
     }
 
     public void pressColon(boolean toBack) {
+        if(calcState.isWaitReset()) {
+            return;
+        }
         if (!toBack) {
             switch (calcState.getResultRegionState()) {
                 case waitH:
@@ -150,6 +159,7 @@ public class CalclLogic {
                             calcDisplay.showDisplay(resultDigit);
 
                             numButtons.disableButtons(clearButtons);
+                            calcState.setWaitReset(true);
                             // TODO надо выставить состояние ожидания для сброса калькулятора
                             // TODO где-то надо добавить разрешение всех клавиш калькулятора после сброса
                     }
@@ -164,9 +174,11 @@ public class CalclLogic {
                 }
                 break;
             case clearDisp:
+                calcState.setWaitReset(false);
                 registerDisp = new Time_POJO(0, calcState.getFps());
                 calcDisplay.showDisplay(registerDisp);
                 numButtons.enableButtons();
+
                 break;
             case restart:
                 clearAll();
