@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Work\JavaWork\time-calculator\target\calc-1.0-jar-with-dependencies.jar</jar>
-  <outfile>C:\Work\JavaWork\time-calculator\bin\calc_t.exe</outfile>
+  <jar>D:\Work\WorkJava\calc\time-calculator\target\calc-1.1-jar-with-dependencies.jar</jar>
+  <outfile>D:\Work\WorkJava\calc\time-calculator\bin\calc_t.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Work\JavaWork\time-calculator\ccc_ico.ico</icon>
+  <icon>D:\Work\WorkJava\calc\time-calculator\ccc_ico.ico</icon>
   <jre>
     <path></path>
     <bundledJre64Bit>false</bundledJre64Bit>
