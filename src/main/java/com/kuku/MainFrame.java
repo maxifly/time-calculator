@@ -116,6 +116,9 @@ public class MainFrame extends JFrame {
         ImageIcon img = new ImageIcon(this.getClass().getResource("/images/ccc_256.png")); //new ImageIcon()  //ImageIcon.class.getResource("images/ccc_ico.ico");
         this.setIconImage(img.getImage());
 
+        CalcMenu calcMenu = new CalcMenu();
+        this.setJMenuBar(calcMenu.getMenuBar());
+
         System.out.println(UIManager.getInstalledLookAndFeels());
         System.out.println(this.isFocusable());
 
