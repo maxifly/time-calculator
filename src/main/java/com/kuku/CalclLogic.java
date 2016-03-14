@@ -52,7 +52,7 @@ public class CalclLogic {
         }
 
         if (calcState.isWaitDigit()) {
-            registerDisp_Float = modifyArg(registerDisp_Float,num);
+            registerDisp_Float = modifyArg(registerDisp_Float, num);
             calcDisplay.showDisplay(registerDisp_Float);
         } else {
             int newValue = 0;
@@ -76,8 +76,6 @@ public class CalclLogic {
             }
             calcDisplay.showDisplay(registerDisp);
         }
-
-
 
 
     }
@@ -130,12 +128,15 @@ public class CalclLogic {
 
 
     public void pressOperation(OperationType operation) {
+        if (this.calcState.isWaitReset()) {
+            return;
+        }
 
         this.calcState.setResultRegionState(CalcResultRegionState.waitH);
         this.registerReg = this.registerDisp; // Так можно делать потому, что известно, что первым аргументом всегда набирается время
         this.operation = operation;
 
-        switch (operation){
+        switch (operation) {
             case div_on_dig:
             case mult_on_dig:
                 this.calcState.setWaitDigit(true);
@@ -152,58 +153,60 @@ public class CalclLogic {
     }
 
     public void pressCommand(CommandType command) {
-
         switch (command) {
             case clear:
                 clearAll();
-                break;
-            case chngSign:
-                registerDisp.sign = registerDisp.sign * (-1);
-                calcDisplay.showDisplay(registerDisp);
-                break;
-            case eq:
-                if (operation != null) {
-
-                    switch (operation) {
-                        case add:
-                        case sub:
-                            registerDisp = (Time_POJO) calculate(this.registerReg, this.registerDisp, operation);
-                            calcDisplay.showDisplay(registerDisp);
-                            break;
-                        case div:
-                            Float resultDigit = (Float) calculate(this.registerReg, this.registerDisp, operation);
-                            System.out.println("result " + resultDigit);
-                            calcDisplay.showDisplay(resultDigit);
-
-                            numButtons.disableButtons(clearButtons);
-                            calcState.setWaitReset(true);
-                            break;
-                        case mult_on_dig:
-                        case div_on_dig:
-                            registerDisp = (Time_POJO) calculate(this.registerReg, this.registerDisp_Float, operation);
-                            calcDisplay.showDisplay(registerDisp);
-                            calcState.setWaitDigit(false);
-                    }
-                    calcState.setResultRegionState(CalcResultRegionState.waitH);
-                    operation = null;
-                    calcDisplay.showRegistrAndOper(null, null);
-                    calcDisplay.showStatus(calcState);
-                }
                 break;
             case clearDisp:
                 calcState.setWaitReset(false);
                 registerDisp = new Time_POJO(0, calcState.getFps());
                 calcDisplay.showDisplay(registerDisp);
                 numButtons.enableButtons();
-
                 break;
             case restart:
                 clearAll();
                 break;
-
+            default:
+                break;
         }
 
+        if (!this.calcState.isWaitReset()) {
+            switch (command) {
+                case chngSign:
+                    registerDisp.sign = registerDisp.sign * (-1);
+                    calcDisplay.showDisplay(registerDisp);
+                    break;
+                case eq:
+                    if (operation != null) {
 
+                        switch (operation) {
+                            case add:
+                            case sub:
+                                registerDisp = (Time_POJO) calculate(this.registerReg, this.registerDisp, operation);
+                                calcDisplay.showDisplay(registerDisp);
+                                break;
+                            case div:
+                                Float resultDigit = (Float) calculate(this.registerReg, this.registerDisp, operation);
+                                System.out.println("result " + resultDigit);
+                                calcDisplay.showDisplay(resultDigit);
+
+                                numButtons.disableButtons(clearButtons);
+                                calcState.setWaitReset(true);
+                                break;
+                            case mult_on_dig:
+                            case div_on_dig:
+                                registerDisp = (Time_POJO) calculate(this.registerReg, this.registerDisp_Float, operation);
+                                calcDisplay.showDisplay(registerDisp);
+                                calcState.setWaitDigit(false);
+                        }
+                        calcState.setResultRegionState(CalcResultRegionState.waitH);
+                        operation = null;
+                        calcDisplay.showRegistrAndOper(null, null);
+                        calcDisplay.showStatus(calcState);
+                    }
+                    break;
+            }
+        }
     }
 
 
@@ -236,10 +239,10 @@ public class CalclLogic {
 
         switch (operation) {
             case div_on_dig:
-                result = Math.round((float)frames_argA/argB);
+                result = Math.round((float) frames_argA / argB);
                 return new Time_POJO(result, argA.fps);
             case mult_on_dig:
-                result = Math.round((float)frames_argA*argB);
+                result = Math.round((float) frames_argA * argB);
                 return new Time_POJO(result, argA.fps);
             default:
                 result = 0;
