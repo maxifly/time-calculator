@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
     NumButtons numButtons;
     FpsButtons fpsButtons;
 
-    public MainFrame()  {
+    public MainFrame(ElementFactory factory)  {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
         }
 
 
-        ElementFactory factory = new ElementFactory();
+        factory = new ElementFactory();
 
         CalcDisplay calcDisplay = factory.getCalcDisplay();
 
@@ -116,7 +116,7 @@ public class MainFrame extends JFrame {
         ImageIcon img = new ImageIcon(this.getClass().getResource("/images/ccc_256.png")); //new ImageIcon()  //ImageIcon.class.getResource("images/ccc_ico.ico");
         this.setIconImage(img.getImage());
 
-        CalcMenu calcMenu = new CalcMenu();
+        CalcMenu calcMenu = new CalcMenu(factory);
         this.setJMenuBar(calcMenu.getMenuBar());
 
         System.out.println(UIManager.getInstalledLookAndFeels());

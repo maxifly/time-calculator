@@ -13,7 +13,7 @@ public class CalcMenu implements ActionListener{
     private ElementFactory factory;
 
 
-    public CalcMenu() {
+    public CalcMenu(ElementFactory factory) {
         super();
         this.factory = factory;
         menuBar = new JMenuBar();

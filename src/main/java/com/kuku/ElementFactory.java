@@ -29,6 +29,8 @@ public class ElementFactory {
     private CalcButtonsActions calcButtonsActions = new CalcButtonsActions(calclLogic);
     private NumButtons numButtons;
 
+    private MainFrame mainFrame;
+
     public ElementFactory() {
         super();
         this.calclLogic = new CalclLogic(this);
@@ -101,5 +103,12 @@ public class ElementFactory {
 
     public NumButtons getNumButtons() {
         return numButtons;
+    }
+
+    public MainFrame getMainFrame() {
+        if (mainFrame == null) {
+            this.mainFrame = new MainFrame(this);
+        }
+        return mainFrame;
     }
 }

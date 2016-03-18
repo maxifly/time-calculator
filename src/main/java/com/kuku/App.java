@@ -8,8 +8,8 @@ import javax.swing.*;
 public class App {
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException, InterruptedException {
         System.out.println("kuku");
-
-        MainFrame mf = new MainFrame();
+        ElementFactory factory = new ElementFactory();
+        MainFrame mf = factory.getMainFrame();
 
         mf.start();
         System.out.println("tutu");
