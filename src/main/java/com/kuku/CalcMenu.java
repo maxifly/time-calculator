@@ -10,9 +10,12 @@ import java.awt.event.ActionListener;
  */
 public class CalcMenu implements ActionListener{
     private JMenuBar menuBar;
+    private ElementFactory factory;
+
 
     public CalcMenu() {
         super();
+        this.factory = factory;
         menuBar = new JMenuBar();
         JMenu helpMenu = new JMenu("Help");
         menuBar.add(helpMenu);
@@ -32,6 +35,10 @@ public class CalcMenu implements ActionListener{
        JMenuItem mi = (JMenuItem) e.getSource();
        switch (mi.getText()) {
            case "About":
+
+               WindowAbout windowAbout = new WindowAbout(this.factory);
+               windowAbout.setVisible(true);
+
                System.out.println("About");
                break;
        }
