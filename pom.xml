@@ -62,6 +62,8 @@
                     <archive>
                         <manifest>
                             <mainClass>com.kuku.App</mainClass>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             // main being main.java which has my main method
                         </manifest>
                     </archive>
