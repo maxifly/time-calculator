@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
  * Created by Maxim.Pantuhin on 18.03.2016.
  */
 public class WindowAbout extends JDialog {
-//TODO See http://stackoverflow.com/questions/527719/how-to-add-hyperlink-in-jlabel
+// See http://stackoverflow.com/questions/527719/how-to-add-hyperlink-in-jlabel
 
     private static final String A_VALID_LINK = "http://github.com/maxifly/time-calculator/releases";
     private static final String A_HREF = "<a href=\"";

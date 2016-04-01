@@ -38,6 +38,7 @@ public class CalclLogic {
         this.operation = null;
         this.calcState.setResultRegionState(CalcResultRegionState.waitH);
         this.calcState.setWaitReset(false);
+        this.calcState.setWaitDigit(false);
 
         numButtons.enableButtons();
 
@@ -160,7 +161,14 @@ public class CalclLogic {
             case clearDisp:
                 calcState.setWaitReset(false);
                 registerDisp = new Time_POJO(0, calcState.getFps());
-                calcDisplay.showDisplay(registerDisp);
+                registerDisp_Float = 0f;
+
+                if (this.calcState.isWaitDigit()) {
+                    calcDisplay.showDisplay(registerDisp_Float);
+                } else {
+                    calcDisplay.showDisplay(registerDisp);
+                }
+
                 numButtons.enableButtons();
                 break;
             case restart:
