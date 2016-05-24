@@ -83,6 +83,8 @@
                 </executions>
             </plugin>
 
+
+
             <!--<plugin>-->
                 <!--<groupId>com.akathist.maven.plugins.launch4j</groupId>-->
                 <!--<artifactId>launch4j-maven-plugin</artifactId>-->
@@ -126,7 +128,17 @@
 
 
         </plugins>
+
+
+
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+    </dependencies>
 
 </project>
