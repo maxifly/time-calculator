@@ -13,7 +13,8 @@ public class TestJson {
     @Test
     public void testSendGet() throws Exception {
         RestSender restSender = new RestSender();
-        RestResponse restResponse =  restSender.sendGet("https://api.github.com/repos/maxifly/time-calculator/releases/latest");
+        RestResponse restResponse =  restSender.sendGet(
+                "https://api.github.com/repos/maxifly/time-calculator/releases/latest");
 
         Gson g = new Gson();
         LatestVersion latestVersion =

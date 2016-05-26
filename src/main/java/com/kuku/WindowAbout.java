@@ -1,5 +1,10 @@
 package com.kuku;
 
+import com.google.gson.Gson;
+import com.kuku.rest.RestSender;
+import com.kuku.rest.model.LatestVersion;
+import com.kuku.rest.model.RestResponse;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -21,18 +26,32 @@ public class WindowAbout extends JDialog {
     private static final String HTML = "<html>";
     private static final String HTML_END = "</html>";
 
-
+    private RestSender restSender = new RestSender();
+    private Gson gson = new Gson();
 
     public WindowAbout(ElementFactory factory) {
         super();
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
+        RestResponse restResponse = restSender.sendGet("https://api.github.com/repos/maxifly/time-calculator/releases/latest");
+        String latestVersionName = "unknown";
+
+        if (restResponse.getResponseCode() == 200) {
+           LatestVersion latestVersion = gson.fromJson(restResponse.getResponseBody().toString(), LatestVersion.class);
+           latestVersionName = latestVersion.tag_name.substring(1);
+
+        }
+
+
 
         String text = "<html> <br><br> " +
                 "Timer calculator<br>" +
                 "Current version: <b> " +
                 (new Constants()).version() +
+                "</b><br>" +
+                "Latest version: <b> " +
+                latestVersionName +
                 "</b><br>" +
                 "For further information visit: <br> </html>";
 
