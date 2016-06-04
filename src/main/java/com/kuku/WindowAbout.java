@@ -36,11 +36,16 @@ public class WindowAbout extends JDialog {
 
         RestResponse restResponse = restSender.sendGet("https://api.github.com/repos/maxifly/time-calculator/releases/latest");
         String latestVersionName = "unknown";
+        String currentVersionName = (new Constants()).version();
+
+        float latestVersionNum = 0;
+        float currentVersionNum =  Float.parseFloat(currentVersionName);
+        LatestVersion latestVersion = null;
 
         if (restResponse.getResponseCode() == 200) {
-           LatestVersion latestVersion = gson.fromJson(restResponse.getResponseBody().toString(), LatestVersion.class);
+           latestVersion = gson.fromJson(restResponse.getResponseBody().toString(), LatestVersion.class);
            latestVersionName = latestVersion.tag_name.substring(1);
-
+           latestVersionNum = Float.parseFloat(latestVersionName);
         }
 
 
@@ -48,7 +53,7 @@ public class WindowAbout extends JDialog {
         String text = "<html> <br><br> " +
                 "Timer calculator<br>" +
                 "Current version: <b> " +
-                (new Constants()).version() +
+                currentVersionName +
                 "</b><br>" +
                 "Latest version: <b> " +
                 latestVersionName +
@@ -64,6 +69,14 @@ public class WindowAbout extends JDialog {
         if (isBrowsingSupported()) {
             makeLinkable(hrefLabel, new LinkMouseListener());
         }
+
+
+        if (latestVersionNum > currentVersionNum) {
+            Action updateAction = new UpdateAction(latestVersion.url, factory.getMainFrame());
+            JButton jbLoad = new JButton(updateAction);
+            addComponent(jbLoad,panel);
+        }
+
 
         this.add(panel);
         this.setModalityType(ModalityType.APPLICATION_MODAL);

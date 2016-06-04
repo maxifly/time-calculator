@@ -1,5 +1,6 @@
 package com.kuku.downloader;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
@@ -15,21 +16,32 @@ public class Download implements Callable<DownStatus> {
 
 
     private URL url;
-    private String destFileName;
+    private File destFile;
+    //private String destFileName;
     private int size;
     private int downloaded;
     private DownStatus status;
 
     public Download(URL url, String destFileName) {
-        this.url = url;
-        this.destFileName = destFileName;
-        size = -1;
-        downloaded = 0;
-        status = DownStatus.DOWNLOADING;
+        super();
+        this.prepare(url, new File(destFileName));
+    }
+
+    public Download(URL url, File destFile) {
+        super();
+        this.prepare(url, destFile);
     }
 
     public URL getUrl() {
         return url;
+    }
+
+    private void prepare(URL url, File destFile) {
+        this.url = url;
+        this.destFile = destFile;
+        size = -1;
+        downloaded = 0;
+        status = DownStatus.DOWNLOADING;
     }
 
     @Override
@@ -58,7 +70,8 @@ public class Download implements Callable<DownStatus> {
                 size = contentLength;
             }
 
-            file = new RandomAccessFile(this.destFileName, "rw");
+            System.out.println("Start download to " + this.destFile.getAbsolutePath());
+            file = new RandomAccessFile(this.destFile, "rw");
             file.seek(downloaded);
 
             stream = connection.getInputStream();
