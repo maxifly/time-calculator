@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -55,6 +58,12 @@ public class UpdateAction extends AbstractAction {
 
 
             String currentPath = Constants.getFilePath(App.class.getName());
+            System.out.println(currentPath);
+            String programPath = currentPath.substring(0,currentPath.indexOf("!"));
+
+            File programFile = new File(programPath);
+            Files.move(destFile.toPath(),programFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
 
             System.out.println("Path \n"+currentPath);
             JOptionPane.showMessageDialog(parentFrame,
