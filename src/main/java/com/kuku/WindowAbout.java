@@ -71,7 +71,7 @@ public class WindowAbout extends JDialog {
         }
 
 
-        if (latestVersionNum > currentVersionNum) {
+        if (latestVersionNum > currentVersionNum || true) { //TODO Убрать заглушку
             Action updateAction = new UpdateAction(latestVersion.url, factory.getMainFrame());
             JButton jbLoad = new JButton(updateAction);
             addComponent(jbLoad,panel);

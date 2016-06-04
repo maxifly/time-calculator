@@ -52,8 +52,13 @@ public class UpdateAction extends AbstractAction {
             } else {
                 System.out.println("loaded");
             }
+
+
+            String currentPath = Constants.getFilePath(App.class.getName());
+
+            System.out.println("Path \n"+currentPath);
             JOptionPane.showMessageDialog(parentFrame,
-                    "Load new version completed.");
+                    "Load new version completed.\n" + currentPath);
 
 
         } catch (IOException | InterruptedException | ErrorTimeout| ExecutionException e1) {
