@@ -2,6 +2,7 @@ package com.kuku;
 
 import com.google.gson.Gson;
 import com.kuku.rest.RestSender;
+import com.kuku.rest.model.Asset;
 import com.kuku.rest.model.LatestVersion;
 import com.kuku.rest.model.RestResponse;
 
@@ -72,7 +73,17 @@ public class WindowAbout extends JDialog {
 
 
         if (latestVersionNum > currentVersionNum || true) { //TODO Убрать заглушку
-            Action updateAction = new UpdateAction(latestVersion.url, factory.getMainFrame());
+
+            String newVersionUrl = null;
+            for (Asset asset : latestVersion.assets) {
+                if (asset.name.contains("exe")) {
+                    newVersionUrl = asset.browser_download_url;
+                }
+            }
+
+
+
+            Action updateAction = new UpdateAction(newVersionUrl, factory.getMainFrame());
             JButton jbLoad = new JButton(updateAction);
             addComponent(jbLoad,panel);
         }

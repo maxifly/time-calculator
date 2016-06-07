@@ -1,8 +1,14 @@
 package com.kuku;
 
+import com.google.gson.Gson;
 import com.kuku.downloader.Download;
 import com.kuku.downloader.Downloader;
+import com.kuku.downloader.ErrorLoadUpdater;
 import com.kuku.downloader.ErrorTimeout;
+import com.kuku.rest.RestSender;
+import com.kuku.rest.model.Asset;
+import com.kuku.rest.model.LatestVersion;
+import com.kuku.rest.model.RestResponse;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +26,8 @@ import java.util.concurrent.ExecutionException;
 public class UpdateAction extends AbstractAction {
     private String url;
     private JFrame parentFrame;
-    public UpdateAction(String url, JFrame parentFrame ){
+
+    public UpdateAction(String url, JFrame parentFrame) {
 
         super("Update");
         this.url = url;
@@ -32,16 +39,29 @@ public class UpdateAction extends AbstractAction {
         System.out.println("Updare action");
 
         try {
-            File destFile = File.createTempFile("timeclc_",null);
+
+            String updaterUrl = getUpdaterUrl();
+
+            if (updaterUrl == null) {
+                throw new ErrorLoadUpdater("Can not get updater url");
+            }
+
+
+            Path destDir = Files.createTempDirectory("calc_");
+            File destUpdater = new File(destDir.toString(), "updater.jar");
+            File destFile = File.createTempFile("timeclc_", null, destDir.toFile());
 
             Download download = new Download(new URL(url), destFile);
+            Download download1 = new Download(new URL(updaterUrl), destUpdater);
+
             Downloader downloader = new Downloader();
             downloader.startTask(download);
+            downloader.startTask(download1);
 
-           long timeoutTime = System.currentTimeMillis() + Constants.updateTimeout;
+            long timeoutTime = System.currentTimeMillis() + Constants.updateTimeout;
             boolean loadComplete = false;
 
-            while ( timeoutTime > System.currentTimeMillis() ) {
+            while (timeoutTime > System.currentTimeMillis()) {
                 if (downloader.checkTasks()) {
                     loadComplete = true;
                     break;
@@ -51,26 +71,41 @@ public class UpdateAction extends AbstractAction {
 
             if (!loadComplete) {
                 System.out.println("timeout");
-                throw new ErrorTimeout("timeout load file ("+ Constants.updateTimeout/1000 +" sec.)");
+                throw new ErrorTimeout("timeout load file (" + Constants.updateTimeout / 1000 + " sec.)");
             } else {
                 System.out.println("loaded");
             }
 
 
             String currentPath = Constants.getFilePath(App.class.getName());
-            System.out.println(currentPath);
-            String programPath = currentPath.substring(0,currentPath.indexOf("!"));
-
-            File programFile = new File(programPath);
-            Files.move(destFile.toPath(),programFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("CurrentPath: " + currentPath);
+            String programPath = currentPath.substring(0, currentPath.indexOf("!"));
 
 
-            System.out.println("Path \n"+currentPath);
+            File oldFile = new File(programPath);
+
+
+            String execute = "java -jar " +
+                    destUpdater
+                    + " --old " + oldFile.toString()
+                    + " --new " + destFile.toString()
+                    + " --execute " + oldFile.toString();
+            System.out.println(execute);
+
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec(execute);
+
+
+//            File programFile = new File(programPath);
+//            Files.move(destFile.toPath(),programFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+
+            System.out.println("Path \n" + currentPath);
             JOptionPane.showMessageDialog(parentFrame,
                     "Load new version completed.\n" + currentPath);
 
 
-        } catch (IOException | InterruptedException | ErrorTimeout| ExecutionException e1) {
+        } catch (IOException | InterruptedException | ErrorTimeout | ErrorLoadUpdater | ExecutionException e1) {
             e1.printStackTrace();
             String message = e1.getMessage();
             if (message == null) {
@@ -83,4 +118,29 @@ public class UpdateAction extends AbstractAction {
         }
 
     }
+
+    private String getUpdaterUrl() {
+        RestSender restSender = new RestSender();
+        RestResponse restResponse = restSender.sendGet("https://api.github.com/repos/maxifly/updater/releases/latest");
+
+        LatestVersion latestVersion = null;
+        Gson gson = new Gson();
+
+        if (restResponse.getResponseCode() == 200) {
+            latestVersion = gson.fromJson(restResponse.getResponseBody().toString(), LatestVersion.class);
+
+            String newVersionUrl = null;
+            for (Asset asset : latestVersion.assets) {
+                if (asset.name.contains("jar")) {
+                    newVersionUrl = asset.browser_download_url;
+                }
+            }
+
+            return newVersionUrl;
+        }
+
+        return null;
+    }
+
+
 }

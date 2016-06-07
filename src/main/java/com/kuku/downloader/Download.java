@@ -70,7 +70,7 @@ public class Download implements Callable<DownStatus> {
                 size = contentLength;
             }
 
-            System.out.println("Start download to " + this.destFile.getAbsolutePath());
+            System.out.println("Start download "+ this.url + " to " + this.destFile.getAbsolutePath());
             file = new RandomAccessFile(this.destFile, "rw");
             file.seek(downloaded);
 
