@@ -5,3 +5,6 @@ target/maven-archiver/pom.properties
 app_state.txt
 *.iml
 target/test-classes/*
+kuku/*
+target/calc-1.2.jar
+target/calc-1.2-jar-with-dependencies.jar

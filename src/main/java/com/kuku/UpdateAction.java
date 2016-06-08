@@ -84,16 +84,20 @@ public class UpdateAction extends AbstractAction {
 
             File oldFile = new File(programPath);
 
+            String execute_arg = null;
+            if (oldFile.toString().contains(".exe")) {
+                execute_arg = oldFile.toString();
+            } else {
+                execute_arg = "\"" + "java -jar " + oldFile.toString() + "\"";
+            }
+
 
             String execute = "java -jar " +
                     destUpdater
                     + " --old " + oldFile.toString()
                     + " --new " + destFile.toString()
-                    + " --execute " + oldFile.toString();
+                    + " --execute " + execute_arg;
             System.out.println(execute);
-
-            Runtime runtime = Runtime.getRuntime();
-            runtime.exec(execute);
 
 
 //            File programFile = new File(programPath);
@@ -102,7 +106,12 @@ public class UpdateAction extends AbstractAction {
 
             System.out.println("Path \n" + currentPath);
             JOptionPane.showMessageDialog(parentFrame,
-                    "Load new version completed.\n" + currentPath);
+                    "Load new version completed.\n " + currentPath +
+                            "\n\nNow the program will be restarted.");
+
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec(execute);
+            System.exit(0);
 
 
         } catch (IOException | InterruptedException | ErrorTimeout | ErrorLoadUpdater | ExecutionException e1) {

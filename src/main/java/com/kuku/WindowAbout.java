@@ -72,7 +72,7 @@ public class WindowAbout extends JDialog {
         }
 
 
-        if (latestVersionNum > currentVersionNum || true) { //TODO Убрать заглушку
+        if (latestVersionNum > currentVersionNum) {
 
             String newVersionUrl = null;
             for (Asset asset : latestVersion.assets) {
