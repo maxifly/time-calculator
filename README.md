@@ -12,4 +12,4 @@ Button "/dg" (Alt+/) is operation "divide time by number".
 
 For Windows - simple use file bin/calc_t.exe (Keep other files is not necessary).
 
-On other OS use: java -jar calc-x.x-xxxx-jar-with-dependencies.jar
+On other OS use: java -jar calc_t.jar
